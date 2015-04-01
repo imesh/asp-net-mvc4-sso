@@ -1,10 +1,7 @@
 ﻿@if (Request.IsAuthenticated) {
     <text>
         Hello, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
-            @Html.AntiForgeryToken()
-            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-        }
+        <a href="https://localhost:9443/commonauth?commonAuthLogout=true&type=passivests&sessionDataKey=abc123&commonAuthCallerPath=http://localhost:3240/Account/LogOff&relyingParty=MVC4WebApp">Log Off</a>
     </text>
 } else {
     <ul>
@@ -12,4 +9,3 @@
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
-<a href="https://localhost:9443/commonauth?commonAuthLogout=true&type=passivests&sessionDataKey=abc123&commonAuthCallerPath=http://localhost:3240&relyingParty=MVC4WebApp">IDP Log Off</a>

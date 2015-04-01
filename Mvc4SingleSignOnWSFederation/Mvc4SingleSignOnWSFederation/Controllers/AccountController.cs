@@ -49,60 +49,20 @@ namespace Mvc4SingleSignOnWSFederation.Controllers
         }
 
         //
-        // POST: /Account/LogOff
+        // GET: /Account/LogOff
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public ActionResult LogOff()
         {
-            //return Redirect("https://localhost:9443/commonauth?commonAuthLogout=true&type=passivests&sessionDataKey=7fa50562-2d0f-4234-8e39-8a7271b9b273&commonAuthCallerPath=http://localhost:1169&relyingParty=ASPNETWebApp");
-            
-            //IDPLogOut();
             WebSecurity.Logout();
             FederatedAuthentication.SessionAuthenticationModule.SignOut();
-
-            return RedirectToAction("Index", "Home"); ;
+            return RedirectToAction("Index", "Home");
         }
 
-        private void IDPLogOut()
-        {
-            ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(ValidateRemoteCertificate);
-
-            String logoutUrl = "https://localhost:9443/commonauth?commonAuthLogout=true&type=passivests&sessionDataKey=" + Session.SessionID + "&commonAuthCallerPath=http://localhost:1169&relyingParty=ASPNETWebApp";
-            Uri myUri = new Uri(logoutUrl);
-            WebRequest request = WebRequest.Create(myUri);
-            request.UseDefaultCredentials = true;
-            request.AuthenticationLevel = System.Net.Security.AuthenticationLevel.None;
-
-
-            HttpCookie commonAuthIdCookie = Request.Cookies["FedAuth"];
-            if (commonAuthIdCookie != null)
-            {
-                TryAddCookie(request, commonAuthIdCookie);
-            }
-            WebResponse response = request.GetResponse();
-        }
-
-        private bool TryAddCookie(WebRequest webRequest, HttpCookie cookie)
-        {
-            HttpWebRequest httpRequest = webRequest as HttpWebRequest;
-            if (httpRequest == null)
-            {
-                return false;
-            }
-
-            if (httpRequest.CookieContainer == null)
-            {
-                httpRequest.CookieContainer = new CookieContainer();
-            }
-
-            httpRequest.CookieContainer.Add(new Cookie(cookie.Name, cookie.Value, cookie.Path, cookie.Domain));
-            return true;
-        }
-
-        // callback used to validate the certificate in an SSL conversation
+        // Callback used to validate the certificate in an SSL conversation
         private static bool ValidateRemoteCertificate(object sender, X509Certificate cert, X509Chain chain, SslPolicyErrors policyErrors)
         {
+            // Disable SSL certificate validation
             return true;
         }
 
