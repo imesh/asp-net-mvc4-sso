@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
-
 using ComponentSpace.SAML2;
 
 namespace Mvc4SingleSignOnSAML2.Controllers {

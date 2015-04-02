@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 
 using ComponentSpace.SAML2;
+using ComponentSpace.SAML2.Exceptions;
 
 namespace Mvc4SingleSignOnSAML2.Controllers {
     public static class AppSettings {
@@ -24,11 +25,20 @@ namespace Mvc4SingleSignOnSAML2.Controllers {
             // Logout locally.
             FormsAuthentication.SignOut();
 
-            // Request logout at the identity provider.
-            string partnerIdP = WebConfigurationManager.AppSettings[AppSettings.PartnerIdP];
-            SAMLServiceProvider.InitiateSLO(Response, null, partnerIdP);
-
-            return new EmptyResult();
+            try
+            {
+                // Request logout at the identity provider.
+                string partnerIdP = WebConfigurationManager.AppSettings[AppSettings.PartnerIdP];
+                SAMLServiceProvider.InitiateSLO(Response, null, partnerIdP);
+            }
+            catch (SAMLProtocolException e)
+            {
+                if (!e.Message.Contains("There is no SSO session to partner localhost to logout"))
+                {
+                    throw e;
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }
