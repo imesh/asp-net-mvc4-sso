@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Mvc4SingleSignOnSAML2.Models.Ticket>
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Tickets Available</h2>
+
+<table>
+    <tr>
+        <th style="width: 20px;">ID</th>
+        <th style="width: 100px;">Title</th>
+        <th style="width: 100px;">Venue</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>@item.ID</td>
+        <td>@item.Title</td>
+        <td>@item.Venue</td>
+    </tr>
+}
+
+</table>
