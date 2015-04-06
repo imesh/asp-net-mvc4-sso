@@ -12,9 +12,11 @@ namespace TicketsApi.Controllers
     {
         private static Ticket[] tickets = new Ticket[] 
         {
-            new Ticket("1", "Bryan Adams Live", "NY"),
-            new Ticket("2", "Enrique Live", "Boston"),
-            new Ticket("3", "FIFA World Cup 2015", "AZ")
+            new Ticket("1", "2015 NCAA Final Four", "Indianapolis, Lucas Oil Stadium"),
+            new Ticket("2", "New York Yankees vs. Toronto Blue Jays", "Bronx, NY, Yankee Stadium"),
+            new Ticket("3", "The Eagles", "Austin, TX Frank Erwin Center"),
+            new Ticket("4", "Phantom of the Opera", "Majestic Theatre - NY"),
+            new Ticket("5", "Elton John: The Million Dollar Piano", "Caesars Palace - Colosseum")
         };
       
 

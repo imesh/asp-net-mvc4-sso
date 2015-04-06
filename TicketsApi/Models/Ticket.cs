@@ -8,17 +8,17 @@ namespace TicketsApi.Models
     public class Ticket
     {
         public String ID { get; set; }
-        public String Title { get; set; }
+        public String Event { get; set; }
         public String Venue { get; set; }
 
         public Ticket()
         {
         }
 
-        public Ticket(String id, String title, String venue)
+        public Ticket(String id, String event_, String venue)
         {
             ID = id;
-            Title = title;
+            Event = event_;
             Venue = venue;
         }
     }
