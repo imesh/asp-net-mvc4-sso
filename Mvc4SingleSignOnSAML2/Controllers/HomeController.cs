@@ -20,8 +20,7 @@ namespace Mvc4SingleSignOnSAML2.Controllers {
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Logout() {
+        public ActionResult LogOut() {
             // Logout locally.
             FormsAuthentication.SignOut();
 
@@ -33,7 +32,7 @@ namespace Mvc4SingleSignOnSAML2.Controllers {
             }
             catch (SAMLProtocolException e)
             {
-                if (!e.Message.Contains("There is no SSO session to partner localhost to logout"))
+                if (!e.Message.Contains("There is no SSO session to partner"))
                 {
                     throw e;
                 }

@@ -20,12 +20,5 @@
     }
 }
 
-<section id="logoutForm">
-@using (Html.BeginForm("Logout", "Home")) {
-    <p>
-    <input type="submit" value="Logout" />
-    </p>
-}
-</section>
-
+<a href="https://localhost:9443/commonauth?commonAuthLogout=true&type=passivests&sessionDataKey=abc123&commonAuthCallerPath=http://localhost:51481/Home/LogOut&relyingParty=Mvc4SingleSignOnSAML2">Log Off</a>
 

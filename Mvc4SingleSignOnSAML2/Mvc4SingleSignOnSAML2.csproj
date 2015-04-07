@@ -228,9 +228,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="sp.pfx" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="sp.cer" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="wso2carbon.cer" />
     <Content Include="Views\Tickets\Index.cshtml" />
