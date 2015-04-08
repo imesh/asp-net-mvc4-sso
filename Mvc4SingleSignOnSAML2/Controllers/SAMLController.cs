@@ -10,6 +10,7 @@ using ComponentSpace.SAML2.Protocols;
 using System.Text;
 using System.Xml;
 using Mvc4SingleSignOnSAML2.Controllers.Utils;
+using System.Text.RegularExpressions;
 
 namespace Mvc4SingleSignOnSAML2.Controllers {
 
@@ -37,11 +38,19 @@ namespace Mvc4SingleSignOnSAML2.Controllers {
                 // Receive and process the SAML assertion contained in the SAML response.
                 // The SAML response is received either as part of IdP-initiated or SP-initiated SSO.
                 SAMLServiceProvider.ReceiveSSO(Request, out isInResponseTo, out partnerIdP, out userName, out attributes, out targetUrl);
-                string samlResponseStr = Encoding.Default.GetString(Convert.FromBase64String(Request.Form[0].ToString()));
-                XmlDocument doc = new XmlDocument();
-                doc.LoadXml(samlResponseStr);  
-                SAMLResponse samlResponse = new SAMLResponse(doc.DocumentElement);
-                SAMLAssertion.Value = samlResponse.GetAssertion().ToString();
+               
+
+                byte[] bytes = Encoding.Default.GetBytes(Request.Form[0]);
+                String samlResponseStr = Encoding.UTF8.GetString(bytes);
+                samlResponseStr = Encoding.Default.GetString(Convert.FromBase64String(samlResponseStr));
+
+                Regex regex = new Regex("<saml2:Assertion(.*)?</saml2:Assertion>");
+                Match match = regex.Match(samlResponseStr);
+                if (!match.Success)
+                {
+                    throw new Exception("SAML assertion not found in response: " + samlResponseStr);
+                }
+                SAMLAssertion.Value = match.Value;
             }
             catch (Exception e)
             {

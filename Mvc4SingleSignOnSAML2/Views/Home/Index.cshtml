@@ -9,6 +9,9 @@
 <p>
 @Html.ActionLink("Show Tickets", "Index", "Tickets")
 </p>
+<p>
+@Html.ActionLink("-- Logo Out --", "LogOut", "Home")
+</p>
 @{
     // Display the attributes returned by the identity provider.
     var attributes = (IDictionary<string, string>)Session[Mvc4SingleSignOnSAML2.Controllers.SAMLController.AttributesSessionKey];

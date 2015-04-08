@@ -34,11 +34,11 @@ namespace Mvc4SingleSignOnSAML2.Controllers
             }
 
             // There seems to be an issue in Key Manager for SAML2 grant type
-            //string encodedSamlAssertion = HttpUtility.UrlEncode(Convert.ToBase64String(Encoding.UTF8.GetBytes(samlAssertion)));
-            //string content = "grant_type=urn:ietf:params:oauth:grant-type:saml2-bearer&assertion=" + encodedSamlAssertion
-            //    + "&scope=PRODUCTION";
+            string encodedSamlAssertion = HttpUtility.UrlEncode(Convert.ToBase64String(Encoding.UTF8.GetBytes(samlAssertion)));
+            string content = "grant_type=urn:ietf:params:oauth:grant-type:saml2-bearer&assertion=" + encodedSamlAssertion
+                + "&scope=PRODUCTION";
             
-            string content = "grant_type=password&username=admin&password=admin";
+            //string content = "grant_type=password&username=admin&password=admin";
             StringContent httpContent = new StringContent(content, Encoding.UTF8, "application/x-www-form-urlencoded");
             
             var response = httpClient.PostAsync(Configuration.TokenApiURL, httpContent);
