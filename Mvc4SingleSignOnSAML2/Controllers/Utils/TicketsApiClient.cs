@@ -9,7 +9,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace Mvc4SingleSignOnSAML2.Controllers
+namespace Mvc4SingleSignOnSAML2.Controllers.Utils
 {
     public class TicketsApiClient
     {

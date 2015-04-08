@@ -1,4 +1,5 @@
-﻿using Mvc4SingleSignOnSAML2.Models;
+﻿using Mvc4SingleSignOnSAML2.Controllers.Utils;
+using Mvc4SingleSignOnSAML2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

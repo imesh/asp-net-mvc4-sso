@@ -11,7 +11,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web;
 
-namespace Mvc4SingleSignOnSAML2.Controllers
+namespace Mvc4SingleSignOnSAML2.Controllers.Utils
 {
     public class TokenApiClient
     {
