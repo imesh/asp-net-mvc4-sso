@@ -35,7 +35,6 @@ namespace Mvc4SingleSignOnSAML2.Controllers
 
             // There seems to be an issue in Key Manager for SAML2 grant type
             //string encodedSamlAssertion = HttpUtility.UrlEncode(Convert.ToBase64String(Encoding.UTF8.GetBytes(samlAssertion)));
-            //encodedSamlAssertion = FixCharacters(encodedSamlAssertion);
             //string content = "grant_type=urn:ietf:params:oauth:grant-type:saml2-bearer&assertion=" + encodedSamlAssertion
             //    + "&scope=PRODUCTION";
             
@@ -49,26 +48,6 @@ namespace Mvc4SingleSignOnSAML2.Controllers
                 return responseObj.access_token;
             }
             return null;
-        }
-
-        private string FixCharacters(string value)
-        {
-            // convert spaces to pluses and trim base64 spacers
-            char[] charDoc = value.Replace(' ', '+').TrimEnd(new char[] { '=' }).ToCharArray();
-
-            StringBuilder docBuilder = new StringBuilder();
-            for (int index = 0; index < charDoc.Length; index++)
-            {
-                if ((index % 78 == 76) && (index < charDoc.Length - 1) && charDoc[index] == '+' && charDoc[index + 1] == '+')
-                {
-                    index++;
-                    continue;
-                }
-                docBuilder.Append(charDoc[index]);
-            }
-            // Add padding, if needed--replicates 0-2 equals
-            docBuilder.Append(new string('=', (4 - docBuilder.Length % 4) % 4));
-            return docBuilder.ToString();
         }
     }
 }
