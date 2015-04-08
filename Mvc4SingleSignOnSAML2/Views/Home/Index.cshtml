@@ -6,7 +6,9 @@
 <p>
 	You are logged in as @User.Identity.Name.
 </p>
-
+<p>
+@Html.ActionLink("Show Tickets", "Index", "Tickets")
+</p>
 @{
     // Display the attributes returned by the identity provider.
     var attributes = (IDictionary<string, string>)Session[Mvc4SingleSignOnSAML2.Controllers.SAMLController.AttributesSessionKey];

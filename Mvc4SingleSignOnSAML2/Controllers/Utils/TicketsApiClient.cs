@@ -14,7 +14,7 @@ namespace Mvc4SingleSignOnSAML2.Controllers
     public class TicketsApiClient
     {
         // Change api url to api exposed by api manager
-        readonly string url = "http://localhost:2423/api/tickets";
+        readonly string url = "http://localhost:8281/tickets/v1.0.0";
 
         public List<Ticket> GetTicketsAsync(string token)
         {
