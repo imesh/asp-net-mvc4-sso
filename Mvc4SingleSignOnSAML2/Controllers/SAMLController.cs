@@ -27,7 +27,6 @@ namespace Mvc4SingleSignOnSAML2.Controllers {
         }
 
         public ActionResult AssertionConsumerService() {
-            throw new Exception("Invoked AssertionConsumerService()");
 
             bool isInResponseTo = false;
             string partnerIdP = null;
@@ -40,7 +39,8 @@ namespace Mvc4SingleSignOnSAML2.Controllers {
                 // Receive and process the SAML assertion contained in the SAML response.
                 // The SAML response is received either as part of IdP-initiated or SP-initiated SSO.
                 SAMLServiceProvider.ReceiveSSO(Request, out isInResponseTo, out partnerIdP, out userName, out attributes, out targetUrl);
-               
+                throw new Exception("Invoked AssertionConsumerService():2");
+
                 byte[] bytes = Encoding.Default.GetBytes(Request.Form[0]);
                 String samlResponseStr = Encoding.UTF8.GetString(bytes);
                 samlResponseStr = Encoding.Default.GetString(Convert.FromBase64String(samlResponseStr));
