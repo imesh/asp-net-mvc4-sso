@@ -57,7 +57,7 @@ namespace Mvc4SingleSignOnSAML2.Controllers {
                 {
                     throw new Exception("Could not retrieve API access token");
                 }
-                Session["ApiAccessToken"] = apiAccessToken;
+                Runtime.ApiAccessToken = apiAccessToken;
             }
             catch (Exception e)
             {
