@@ -52,7 +52,12 @@ namespace Mvc4SingleSignOnSAML2.Controllers {
                 
                 TokenApiClient tokenClient = new TokenApiClient();
                 String samlAssertion = match.Value;
-                Session["ApiAccessToken"] = tokenClient.GetAccessToken(samlAssertion);
+                String apiAccessToken = tokenClient.GetAccessToken(samlAssertion);
+                if (String.IsNullOrEmpty(apiAccessToken))
+                {
+                    throw new Exception("Could not retrieve API access token");
+                }
+                Session["ApiAccessToken"] = apiAccessToken;
             }
             catch (Exception e)
             {

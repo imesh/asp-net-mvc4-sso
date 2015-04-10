@@ -23,7 +23,7 @@ namespace Mvc4SingleSignOnSAML2.Controllers.Utils
         {
             if (String.IsNullOrEmpty(samlAssertion))
             {
-                return null;
+                throw new Exception("SAML assertion is null");
             }
 
             // Disable SSL
@@ -50,7 +50,7 @@ namespace Mvc4SingleSignOnSAML2.Controllers.Utils
                 TokenGenerationResponse responseObj = JsonConvert.DeserializeObject<TokenGenerationResponse>(responseBody);
                 return responseObj.access_token;
             }
-            return null;
+            throw new Exception("Did not receive an Access token from token API");
         }
     }
 }
