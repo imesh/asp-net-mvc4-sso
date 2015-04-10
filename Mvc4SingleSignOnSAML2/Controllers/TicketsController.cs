@@ -25,8 +25,7 @@ namespace Mvc4SingleSignOnSAML2.Controllers
             object tokenObj = Session["ApiAccessToken"];
             if ((tokenObj == null) || String.IsNullOrEmpty(tokenObj.ToString())) 
             {
-                FormsAuthentication.SignOut();
-                return RedirectToAction("Index", "Home");
+                throw new Exception("Acces token not found in session");
             }
             List<Ticket> tickets = apiClient.GetTicketsAsync(tokenObj.ToString());
             return View(tickets);
