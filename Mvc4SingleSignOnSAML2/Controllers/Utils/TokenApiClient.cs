@@ -47,9 +47,12 @@ namespace Mvc4SingleSignOnSAML2.Controllers.Utils
             var response = httpClient.PostAsync(Configuration.TokenApiEndpoint, httpContent);
             string responseBody = response.Result.Content.ReadAsStringAsync().Result;
             if(!String.IsNullOrEmpty(responseBody)) {
-                throw new Exception(responseBody);
-                //TokenGenerationResponse responseObj = JsonConvert.DeserializeObject<TokenGenerationResponse>(responseBody);
-                //return responseObj.access_token;
+                if (responseBody.Contains("error_description"))
+                {
+                    throw new Exception(responseBody);
+                }
+                TokenGenerationResponse responseObj = JsonConvert.DeserializeObject<TokenGenerationResponse>(responseBody);
+                return responseObj.access_token;
             }
             throw new Exception("Did not receive an Access token from token API");
         }
