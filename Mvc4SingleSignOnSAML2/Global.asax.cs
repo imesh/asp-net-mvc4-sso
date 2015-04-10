@@ -29,6 +29,7 @@ namespace Mvc4SingleSignOnSAML2 {
             Configuration.TokenApiEndpoint = WebConfigurationManager.AppSettings["TokenApiEndpoint"];
             Configuration.ConsumerKey = WebConfigurationManager.AppSettings["ConsumerKey"];
             Configuration.ConsumerSecret = WebConfigurationManager.AppSettings["ConsumerSecret"];
+            Configuration.TicketsApiEndpoint = WebConfigurationManager.AppSettings["TicketsApiEndpoint"];
         }
     }
 }

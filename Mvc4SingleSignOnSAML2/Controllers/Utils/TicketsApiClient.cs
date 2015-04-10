@@ -13,9 +13,6 @@ namespace Mvc4SingleSignOnSAML2.Controllers.Utils
 {
     public class TicketsApiClient
     {
-        // Change api url to api exposed by api manager
-        readonly string url = "http://localhost:8281/tickets/v1.0.0";
-
         public List<Ticket> GetTicketsAsync(string token)
         {
             using (HttpClient httpClient = new HttpClient())
@@ -23,7 +20,7 @@ namespace Mvc4SingleSignOnSAML2.Controllers.Utils
                 var authHeader = new AuthenticationHeaderValue("Bearer", token);
                 httpClient.DefaultRequestHeaders.Authorization = authHeader;
 
-                Task<String> response = httpClient.GetStringAsync(url);
+                Task<String> response = httpClient.GetStringAsync(Configuration.TicketsApiEndpoint);
                 return JsonConvert.DeserializeObject<List<Ticket>>(response.Result);
             }
         }
