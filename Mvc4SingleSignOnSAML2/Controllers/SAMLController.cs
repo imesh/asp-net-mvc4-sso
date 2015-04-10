@@ -34,34 +34,33 @@ namespace Mvc4SingleSignOnSAML2.Controllers {
             IDictionary<string, string> attributes = null;
             string targetUrl = null;
 
+            byte[] bytes = Encoding.Default.GetBytes(Request.Form[0]);
+            String samlResponseStr = Encoding.UTF8.GetString(bytes);
+            samlResponseStr = Encoding.Default.GetString(Convert.FromBase64String(samlResponseStr));
+
+            throw new Exception(samlResponseStr);
+
+            Regex regex = new Regex("<saml2:Assertion(.*)?</saml2:Assertion>");
+            Match match = regex.Match(samlResponseStr);
+            if (!match.Success)
+            {
+                throw new Exception("SAML assertion not found in response: " + samlResponseStr);
+            }
+
+            TokenApiClient tokenClient = new TokenApiClient();
+            String samlAssertion = match.Value;
+            String apiAccessToken = tokenClient.GetAccessToken(samlAssertion);
+            if (String.IsNullOrEmpty(apiAccessToken))
+            {
+                throw new Exception("Could not retrieve API access token");
+            }
+            Runtime.ApiAccessToken = apiAccessToken;
+
             try
             {
                 // Receive and process the SAML assertion contained in the SAML response.
                 // The SAML response is received either as part of IdP-initiated or SP-initiated SSO.
                 SAMLServiceProvider.ReceiveSSO(Request, out isInResponseTo, out partnerIdP, out userName, out attributes, out targetUrl);
-                throw new Exception("Invoked AssertionConsumerService():2");
-
-                byte[] bytes = Encoding.Default.GetBytes(Request.Form[0]);
-                String samlResponseStr = Encoding.UTF8.GetString(bytes);
-                samlResponseStr = Encoding.Default.GetString(Convert.FromBase64String(samlResponseStr));
-
-                throw new Exception(samlResponseStr);
-
-                Regex regex = new Regex("<saml2:Assertion(.*)?</saml2:Assertion>");
-                Match match = regex.Match(samlResponseStr);
-                if (!match.Success)
-                {
-                    throw new Exception("SAML assertion not found in response: " + samlResponseStr);
-                }
-                
-                TokenApiClient tokenClient = new TokenApiClient();
-                String samlAssertion = match.Value;
-                String apiAccessToken = tokenClient.GetAccessToken(samlAssertion);
-                if (String.IsNullOrEmpty(apiAccessToken))
-                {
-                    throw new Exception("Could not retrieve API access token");
-                }
-                Runtime.ApiAccessToken = apiAccessToken;
             }
             catch (Exception e)
             {
