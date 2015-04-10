@@ -22,12 +22,12 @@ namespace Mvc4SingleSignOnSAML2.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            string tokenObj = Runtime.ApiAccessToken;
-            if ((tokenObj == null) || String.IsNullOrEmpty(tokenObj.ToString())) 
+            string token = Runtime.ApiAccessToken;
+            if (String.IsNullOrEmpty(token)) 
             {
-                throw new Exception("Acces token not found in session");
+                throw new Exception("Acces token not found!");
             }
-            List<Ticket> tickets = apiClient.GetTicketsAsync(tokenObj.ToString());
+            List<Ticket> tickets = apiClient.GetTicketsAsync(token);
             return View(tickets);
         }
     }
