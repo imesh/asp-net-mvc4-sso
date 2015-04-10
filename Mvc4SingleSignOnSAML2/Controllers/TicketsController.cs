@@ -22,7 +22,7 @@ namespace Mvc4SingleSignOnSAML2.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            object tokenObj = Runtime.ApiAccessToken;
+            string tokenObj = Runtime.ApiAccessToken;
             if ((tokenObj == null) || String.IsNullOrEmpty(tokenObj.ToString())) 
             {
                 throw new Exception("Acces token not found in session");
