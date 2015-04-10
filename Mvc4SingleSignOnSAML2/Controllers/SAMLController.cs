@@ -27,6 +27,8 @@ namespace Mvc4SingleSignOnSAML2.Controllers {
         }
 
         public ActionResult AssertionConsumerService() {
+            throw new Exception("Invoked AssertionConsumerService()");
+
             bool isInResponseTo = false;
             string partnerIdP = null;
             string userName = null;
