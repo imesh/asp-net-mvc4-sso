@@ -38,8 +38,6 @@ namespace Mvc4SingleSignOnSAML2.Controllers {
             String samlResponseStr = Encoding.UTF8.GetString(bytes);
             samlResponseStr = Encoding.Default.GetString(Convert.FromBase64String(samlResponseStr));
 
-            throw new Exception(samlResponseStr);
-
             Regex regex = new Regex("<saml2:Assertion(.*)?</saml2:Assertion>");
             Match match = regex.Match(samlResponseStr);
             if (!match.Success)
