@@ -25,7 +25,7 @@ namespace Mvc4SingleSignOnSAML2.Controllers
             string token = Runtime.ApiAccessToken;
             if (String.IsNullOrEmpty(token)) 
             {
-                throw new Exception("Acces token not found!");
+                throw new Exception("Access token not found!");
             }
             List<Ticket> tickets = apiClient.GetTicketsAsync(token);
             return View(tickets);
