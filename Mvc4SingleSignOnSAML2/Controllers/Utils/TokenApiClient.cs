@@ -13,10 +13,20 @@ using System.Web;
 
 namespace Mvc4SingleSignOnSAML2.Controllers.Utils
 {
+    /// <summary>
+    /// Token API client for invoking WSO2 API Manager Token API.
+    /// Author: imesh@apache.org
+    /// </summary>
     public class TokenApiClient
     {
-        public string GetAccessToken()
+        public string GetAccessToken(String samlAssertion)
         {
+            if (String.IsNullOrEmpty(samlAssertion))
+            {
+                return null;
+            }
+
+            // Disable SSL
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
 
             HttpClient httpClient = new HttpClient();
@@ -25,13 +35,6 @@ namespace Mvc4SingleSignOnSAML2.Controllers.Utils
             var buffer = Encoding.UTF8.GetBytes(Configuration.ConsumerKey + ":" + Configuration.ConsumerSecret);
             var authHeader = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(buffer));
             httpClient.DefaultRequestHeaders.Authorization = authHeader;
-            
-            // Set SAML assertion in message body
-            string samlAssertion = SAMLAssertion.Value;
-            if(String.IsNullOrEmpty(samlAssertion)) 
-            {
-                return null;
-            }
 
             // There seems to be an issue in Key Manager for SAML2 grant type
             string encodedSamlAssertion = HttpUtility.UrlEncode(Convert.ToBase64String(Encoding.UTF8.GetBytes(samlAssertion)));
@@ -41,7 +44,7 @@ namespace Mvc4SingleSignOnSAML2.Controllers.Utils
             //string content = "grant_type=password&username=admin&password=admin";
             StringContent httpContent = new StringContent(content, Encoding.UTF8, "application/x-www-form-urlencoded");
             
-            var response = httpClient.PostAsync(Configuration.TokenApiURL, httpContent);
+            var response = httpClient.PostAsync(Configuration.TokenApiEndpoint, httpContent);
             string responseBody = response.Result.Content.ReadAsStringAsync().Result;
             if(!String.IsNullOrEmpty(responseBody)) {
                 TokenGenerationResponse responseObj = JsonConvert.DeserializeObject<TokenGenerationResponse>(responseBody);

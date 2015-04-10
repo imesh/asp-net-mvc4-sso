@@ -5,10 +5,14 @@ using System.Web;
 
 namespace Mvc4SingleSignOnSAML2.Controllers.Utils
 {
+    /// <summary>
+    /// Runtime configuration
+    /// Author: imesh@apache.org
+    /// </summary>
     public class Configuration
     {
-        public static string TokenApiURL = "https://localhost:9444/oauth2/token";
-        public static string ConsumerKey = "9gAqXdq1MkOoHUT0tI_fE2EmVeQa";
-        public static string ConsumerSecret = "4_RQsXXbaLAbT69XnHgvXqf475Ea";
+        public static string TokenApiEndpoint { get; set; }
+        public static string ConsumerKey { get; set; }
+        public static string ConsumerSecret { get; set; }
     }
 }

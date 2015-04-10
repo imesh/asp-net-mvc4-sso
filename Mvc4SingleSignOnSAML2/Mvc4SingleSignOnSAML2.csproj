@@ -129,7 +129,6 @@
     <Compile Include="Controllers\Utils\Configuration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SAMLController.cs" />
-    <Compile Include="Controllers\Utils\SAMLAssertion.cs" />
     <Compile Include="Controllers\Utils\TicketsApiClient.cs" />
     <Compile Include="Controllers\TicketsController.cs" />
     <Compile Include="Controllers\Utils\TokenApiClient.cs" />
@@ -235,6 +234,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

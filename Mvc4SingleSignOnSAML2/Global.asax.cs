@@ -10,6 +10,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 
 using ComponentSpace.SAML2.Configuration;
+using System.Web.Configuration;
+using Mvc4SingleSignOnSAML2.Controllers.Utils;
 
 namespace Mvc4SingleSignOnSAML2 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -23,6 +25,10 @@ namespace Mvc4SingleSignOnSAML2 {
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            Configuration.TokenApiEndpoint = WebConfigurationManager.AppSettings["TokenApiEndpoint"];
+            Configuration.ConsumerKey = WebConfigurationManager.AppSettings["ConsumerKey"];
+            Configuration.ConsumerSecret = WebConfigurationManager.AppSettings["ConsumerSecret"];
         }
     }
 }

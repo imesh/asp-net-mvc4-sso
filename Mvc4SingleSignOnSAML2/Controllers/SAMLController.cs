@@ -39,7 +39,6 @@ namespace Mvc4SingleSignOnSAML2.Controllers {
                 // The SAML response is received either as part of IdP-initiated or SP-initiated SSO.
                 SAMLServiceProvider.ReceiveSSO(Request, out isInResponseTo, out partnerIdP, out userName, out attributes, out targetUrl);
                
-
                 byte[] bytes = Encoding.Default.GetBytes(Request.Form[0]);
                 String samlResponseStr = Encoding.UTF8.GetString(bytes);
                 samlResponseStr = Encoding.Default.GetString(Convert.FromBase64String(samlResponseStr));
@@ -50,7 +49,10 @@ namespace Mvc4SingleSignOnSAML2.Controllers {
                 {
                     throw new Exception("SAML assertion not found in response: " + samlResponseStr);
                 }
-                SAMLAssertion.Value = match.Value;
+                
+                TokenApiClient tokenClient = new TokenApiClient();
+                String samlAssertion = match.Value;
+                Session["ApiAccessToken"] = tokenClient.GetAccessToken(samlAssertion);
             }
             catch (Exception e)
             {

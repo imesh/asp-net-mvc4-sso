@@ -9,9 +9,12 @@ using System.Web.Security;
 
 namespace Mvc4SingleSignOnSAML2.Controllers
 {
+    /// <summary>
+    /// Tickets controller
+    /// Author: imesh@apache.org
+    /// </summary>
     public class TicketsController : Controller
     {
-        private TokenApiClient tokenClient = new TokenApiClient();
         private TicketsApiClient apiClient = new TicketsApiClient();
         //
         // GET: /Tickets/
@@ -19,13 +22,13 @@ namespace Mvc4SingleSignOnSAML2.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            string token = tokenClient.GetAccessToken();
-            if(String.IsNullOrEmpty(token)) 
+            object tokenObj = Session["ApiAccessToken"];
+            if ((tokenObj == null) || String.IsNullOrEmpty(tokenObj.ToString())) 
             {
                 FormsAuthentication.SignOut();
                 return RedirectToAction("Index", "Home");
             }
-            List<Ticket> tickets = apiClient.GetTicketsAsync(token);
+            List<Ticket> tickets = apiClient.GetTicketsAsync(tokenObj.ToString());
             return View(tickets);
         }
     }
