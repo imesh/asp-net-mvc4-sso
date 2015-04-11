@@ -138,7 +138,6 @@
     </Compile>
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Models\TicketsResponse.cs" />
-    <Compile Include="Models\XmlPayload.cs" />
     <Compile Include="Models\TokenGenerationResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

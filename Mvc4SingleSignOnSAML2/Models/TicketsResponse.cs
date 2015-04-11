@@ -7,6 +7,6 @@ namespace Mvc4SingleSignOnSAML2.Models
 {
     public class TicketsResponse
     {
-        public XmlPayload xmlPayload { get; set; }
+        public List<Ticket> xmlPayload { get; set; }
     }
 }
