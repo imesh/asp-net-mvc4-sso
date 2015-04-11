@@ -22,6 +22,7 @@ namespace Mvc4SingleSignOnSAML2.Controllers.Utils
 
                 Task<String> response = httpClient.GetStringAsync(Configuration.TicketsApiEndpoint);
 
+                throw new Exception(response.Result);
                 if (response.Result.Contains("xmlPayload"))
                 {
                     TicketsResponse ticketsResponse = JsonConvert.DeserializeObject<TicketsResponse>(response.Result);
